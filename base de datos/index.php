@@ -20,6 +20,18 @@ if (isset($_GET["consultar"])){
     else{  echo json_encode(["success"=>0]); }
 }
 
+//Consular LIBRO
+if (isset($_GET["consultarL"])){
+    $idlibro = mysqli_real_escape_string($conexionBD, $_GET["consultarL"]);
+    $sqllibro = mysqli_query($conexionBD,"SELECT * FROM libros WHERE id='$idlibro'");
+    if(mysqli_num_rows($sqllibro) > 0){
+        $sqllibro = mysqli_fetch_all($sqllibro,MYSQLI_ASSOC);
+        echo json_encode($sqllibro);
+        exit();
+    }
+    else{}
+}
+
 //Consular por Correo
 if (isset($_GET["consultarM"])){
     $correo = mysqli_real_escape_string($conexionBD, $_GET["consultarM"]);
@@ -59,14 +71,14 @@ if (isset($_GET["consultarM"]) && isset($_GET["consultarC"])) {
 }
 
 
-//Borrar por Id
+//Borrar por historial por Id 
 if (isset($_GET["borrar"])){
-    $sqlusuario = mysqli_query($conexionBD,"DELETE FROM usuarios WHERE id=".$_GET["borrar"]);
-    if($sqlusuario){
-        echo json_encode(["success"=>1]);
+    $idhistorial= mysqli_real_escape_string($conexionBD, $_GET["borrar"]);
+    $sqlhistorial = mysqli_query($conexionBD,"DELETE FROM historial WHERE idhistorial=$idhistorial");
+    if($sqlhistorial){
         exit();
     }
-    else{  echo json_encode(["success"=>0]); }
+    else{   }
 }
 
 //Insertar
@@ -137,7 +149,7 @@ else{ echo json_encode([["success"=>0]]); }
 */
 
 if(isset($_GET["libros"])){
-    $sqllibro = mysqli_query($conexionBD,"SELECT * FROM libros ");
+    $sqllibro = mysqli_query($conexionBD,"SELECT * FROM libros");
     if(mysqli_num_rows($sqllibro) > 0){
         $sqllibro = mysqli_fetch_all($sqllibro,MYSQLI_ASSOC);
         echo json_encode($sqllibro, JSON_UNESCAPED_SLASHES);

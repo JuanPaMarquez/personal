@@ -30,19 +30,22 @@ export class FiccionComponent {
   }
   
   //PintarCard
+  libroId:any;
   libroTitulo:any;
   libroPortada:any;
   libroAutor:any;
   libroPublicacion:any;
   libroGenero:any;
   libroResumen:any;
-  pintarCard(LibroTitulo:string, libroPortada:string, libroAutor:string, libroPublicacion:string, libroGenero:string, libroResumen:string){
+  libroDescarga:any;
+  pintarCard(libroId:string, LibroTitulo:string, libroPortada:string, libroAutor:string, libroPublicacion:string, libroGenero:string, libroResumen:string, libroDescarga:string){
+    this.libroId = libroId
     this.libroTitulo = LibroTitulo
     this.libroPortada =libroPortada
     this.libroAutor = libroAutor
     this.libroPublicacion = libroPublicacion
     this.libroGenero = libroGenero
     this.libroResumen = libroResumen
-    
+    this.libroDescarga = libroDescarga
   }
 }

@@ -18,6 +18,7 @@
                 <p>-> C: {{usuario.correo}}</p>
             </div>
             <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" data-bs-toggle="modal" data-bs-target="#exampleedit">Editar</button>
+            <button type="button" class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" (click)="cerrarSesion()">Cerrar Sesion</button>
             <p></p>
         </div>
         <div class="col-9 border border-dark border-2">
@@ -27,19 +28,55 @@
                       <th scope="col">#</th>
                       <th scope="col">Libro</th>
                       <th scope="col">Estado</th>
+                      <th scope="col" class="text-center">Borrar</th>
                     </tr>
                   </thead>
                   <tbody class="table-group-divider">
                     <tr *ngFor="let libro of historial">
                       <td>{{libro.idlibro}}</td>
-                      <td>{{libro.titulo}}</td>
+                      <td data-bs-toggle="modal" data-bs-target="#modalId" (click)="pintarCard(libro.idlibro)">{{libro.titulo}}</td>
                       <td>{{libro.estado}}</td>
+                      <td class="text-center" (click)="borrarHistorial(libro.idhistorial, libro.titulo)">X</td>
                     </tr>
                   </tbody>
             </table>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-fluid modal-lg mx-auto" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitleId">{{libroTitulo}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Optional: Place to the bottom of scripts -->
+        <div class="card" style="max-width: 1000px;">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card-body">
+                <h5 class="card-title">Autor: {{libroAutor}}</h5>
+                <p class="card-text"><small class="text-muted">Fecha de Publicacion: {{libroPublicacion}}</small></p>
+                <p class="card-text"><small class="text-muted">Genero: {{libroGenero}}</small></p>
+                <p class="card">RESUMEN: {{libroResumen}}</p>
+                <div class="row-2">
+                  <a class="btn btn-danger rounded-5" [href]="libroDescarga" target="_blank">Descargar</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <img [src]="libroPortada" style="max-height: 400px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <!-- Modal -->
@@ -51,7 +88,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form ngNativeValidate [formGroup]="formularioUsuario" (click)="enviarDatos()">
+            <form ngNativeValidate [formGroup]="formularioUsuario">
                 <table class="table">
                     <tr>
                         <td>NOMBRE:</td>
@@ -68,7 +105,7 @@
                     <br>
                     <tr>
                         <td>
-                          <input class="btn btn-primary rounded" type="submit" (click)="datos()" value="Enviar Datos" name="enviar" routerLink="usuario">
+                          <input class="btn btn-primary rounded" type="submit" (click)="enviarDatos()" value="Enviar Datos" name="enviar">
                         </td>
                     </tr>
                 </table>
