@@ -38,6 +38,10 @@ export class BackendService {
     return this.clienteHttp.get(this.API + '?libros');
   }
 
+  obtenerLibros1(categoria: string) {
+    return this.clienteHttp.get(this.API + `?libros&genero=${categoria}`);
+  }
+
   obtenerUsuario(correo: any): Observable<any> {
     return this.clienteHttp.get(this.API + '?consultarM=' + correo);
   }

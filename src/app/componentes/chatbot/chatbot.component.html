@@ -1,29 +1,45 @@
-<button class="floating-button" (click)="toggleChat()" data-bs-toggle="modal" data-bs-target="#myModal">
-  <i class="fas fa-comment"></i> Chat
-</button>
-
-<div class="modal" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="false">
-  <div class="modal-dialog modal-dialog-bottom-right">
-      <div class="modal-content col-1">
-          <!-- Contenido del modal -->
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="myModalLabel">Bienvenido al Chatbot!!!</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <p class="fw-bold ">Hola! Soy el Chatboy en que lo puedo ayudar hoy?</p>
-            </div>
-            <div class="mb-3">
-              <label for="message-text" class="col-form-label">Chat:</label>
-              <textarea class="form-control" id="message-text"></textarea>
-            </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
-          </div>
-      </div>
+<div class="chat-container" *ngIf="chatVisible">
+  <div id="carta-presntacion">
+    <img
+      class="librobot"
+      src="../assets/R.png"
+      alt=""
+      width="300"
+      height="65"
+    />
+    <p>¡Hola! Soy librobot tu aistente virtual. ¿En qué puedo ayudarte hoy?</p>
+  </div>
+  <div id="chat " class="chat-box">
+    <p>tengo las siguientes Opciones para ti:</p>
+    <ul>
+      <li><a>1: Aventura</a></li>
+      <li><a>2: Ciencia</a></li>
+      <li><a>3: Educacion </a></li>
+      <li><a>4: Ficcion </a></li>
+      <li><a>5: Literatura</a></li>
+    </ul>
+    <div
+      *ngFor="let message of getCombinedMessages()"
+      class="message"
+      [ngClass]="{ user: message.isUser, bot: !message.isUser }"
+    >
+      {{ message.content }}
+    </div>
+  </div>
+  <div class="input-container">
+    <textarea
+      type="text"
+      [(ngModel)]="inputText"
+      (keyup.enter)="sendMessage()"
+      class="chat-input"
+      placeholder="Escribe tu mensaje..."
+    ></textarea>
+    <button (click)="sendMessage()" class="send-button">
+      <i class="fas fa-paper-plane"></i>
+    </button>
   </div>
 </div>
 
-
+<button id="chat-button" class="chat-button" (click)="toggleChat()">
+  <i class="fa-solid fa-robot fa-bounce"></i>
+</button>
