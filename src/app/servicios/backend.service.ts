@@ -9,7 +9,7 @@ import { historial } from './historial';
   providedIn: 'root',
 })
 export class BackendService {
-  API: string = 'http://localhost/biblioteca/';
+  API: string = 'http://api-prueba.rf.gd/';
   mantener = localStorage.getItem('usuarioAutenticado');
   usuarioAutenticado: boolean;
   sinUsuario: boolean;
